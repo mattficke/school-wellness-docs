@@ -1,168 +1,99 @@
 ---
-title: API Reference
+title: School Wellness API Reference
 
 language_tabs:
-  - shell
-  - ruby
-  - python
+  - html
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='http://schoolwellness.herokuapp.com'>School Wellness</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
-  - errors
 
 search: true
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+School Wellness provides an interface to view cafeteria health inspection report data for DC Public Schools.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+# Schools
 
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
+## Get All Schools
 
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+  "id": 1,
+  "name": "ANACOSTIA SENIOR HIGH SCHOOL",
+  "address": "1601 16th ST SE",
+  "createdAt": "2015-08-27T19:33:18.734Z",
+  "updatedAt": "2015-08-27T19:33:18.734Z"
   },
   {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+  "id": 2,
+  "name": "ACHIEVEMENT PREP",
+  "address": "1500 MISSISSIPPI AVE SE",
+  "createdAt": "2015-08-27T19:33:18.734Z",
+  "updatedAt": "2015-08-27T19:33:18.734Z"
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all schools.
 
-### HTTP Request
+### HTTP REQUEST
 
-`GET http://example.com/api/kittens`
+`GET http://schoolwellness.herokuapp.com/schools`
 
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
+## Get One School
 ```json
 {
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+"id": 1,
+"name": "ANACOSTIA SENIOR HIGH SCHOOL",
+"address": "1601 16th ST SE",
+"createdAt": "2015-08-27T19:33:18.734Z",
+"updatedAt": "2015-08-27T19:33:18.734Z"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint retrieves one school
 
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+### HTTP REQUEST
 
-### HTTP Request
+`GET http://schoolwellness.herokuapp.com/schools/<ID>`
 
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
+### URL PARAMTERS
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+ID|The ID of the school to retrieve|
 
+# Health Reports
+
+## Get One School's Health Report
+```json
+{
+"id": 1,
+"riskCategory": 2,
+"numberCritical": 1,
+"numberNoncritical": 4,
+"createdAt": "2015-08-27T19:33:18.845Z",
+"updatedAt": "2015-08-27T19:33:18.845Z",
+"schoolId": 1,
+"name": "ANACOSTIA SENIOR HIGH SCHOOL",
+"address": "1601 16th ST SE"
+}
+```
+
+This endpoint retrieves one school health report
+
+### HTTP REQUEST
+
+`GET http://schoolwellness.herokuapp.com/schools/<ID>/health-report`
+
+### URL PARAMETERS
+
+Parameter | Description
+--------- | -----------
+ID|The ID of the school to retrieve|
